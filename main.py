@@ -19,7 +19,6 @@ def main() -> None:
     application = Application.builder().token(BOT_TOKEN).build()
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help_command))
-    application.add_handler(CommandHandler("cp", send_creater_photo))
     application.add_handler(MessageHandler(
         filters.TEXT & ~filters.COMMAND, echo))
     application.add_handler(CommandHandler('imgfilter', choose_filter))

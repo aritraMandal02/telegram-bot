@@ -24,10 +24,6 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(update.message.text)
 
 
-async def send_creater_photo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_document(document='https://python-telegram-bot.org/static/testfiles/telegram.gif')
-
-
 async def choose_filter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if not context.args:
         reply = "These are the filters I can apply:\n"
