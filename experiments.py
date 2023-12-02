@@ -2,22 +2,38 @@ import numpy as np
 import cv2 as cv
 from sklearn.cluster import KMeans
 
-IMG_PATH = r"C:\Users\aritr\Downloads\Telegram Desktop\profile_photo.png"
+def get_file_ext(filename: str):
+    return filename.split('.')[-1]
 
-img = cv.imread(IMG_PATH)
 
-img = cv.resize(img, (0, 0), fx=0.5, fy=0.5)
-cv.imshow('profile_photo.png', img)
+darkBlue = (0, 51, 76)
+red = (217, 26, 33)
+lightBlue = (112, 150, 158)
+yellow = (252, 227, 166)
 
-flattened = img.flatten().reshape((-1, 3))
 
-kMeans = KMeans(n_clusters=4, n_init=50, random_state=0).fit(flattened)
+def filter_obama(img_arr):
+    img = np.asarray((img_arr), dtype="uint8")
+    img = cv.imdecode(img, cv.IMREAD_COLOR)
+    for i in range(img.shape[0]):
+        for j in range(img.shape[1]):
+            if sum(img[i, j]) < 182:
+                img[i, j] = darkBlue
+            elif sum(img[i, j]) < 364:
+                img[i, j] = red
+            elif sum(img[i, j]) < 460:
+                img[i, j] = lightBlue
+            else:
+                img[i, j] = yellow
+    img = cv.cvtColor(img, cv.COLOR_RGB2BGR)
+    img = cv.imencode('.jpg', img)[1].tobytes()
+    return img
 
-colors = [[0, 49, 79], [216, 25, 33], [252, 228, 168], [252, 228, 168]]
+def filter_gray():
+    pass
 
-new_flattened = np.array([colors[i] for i in kMeans.labels_])
-new_image = new_flattened.reshape(img.shape).astype(np.uint8)
+image_filters = {
+    'obama': filter_obama,
+    'gray': filter_gray,
+}
 
-new_image = cv.cvtColor(new_image, cv.COLOR_RGB2BGR)
-cv.imshow('new_image', new_image)
-cv.waitKey(0)
