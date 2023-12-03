@@ -60,6 +60,6 @@ async def send_quote(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
 async def send_weather(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if context.args:
         weather = get_weather(' '.join(context.args))
-        await update.message.reply_text(weather)
+        await update.message.reply_text(weather, parse_mode='HTML')
     else:
         await update.message.reply_text('Send `/weather city_name`', parse_mode='MarkdownV2')
