@@ -21,8 +21,11 @@ def main() -> None:
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(MessageHandler(
         filters.TEXT & ~filters.COMMAND, echo))
-    application.add_handler(CommandHandler('imgfilter', choose_filter))
+    application.add_handler(CommandHandler("imgfilter", choose_filter))
     application.add_handler(MessageHandler(filters.PHOTO, apply_filter))
+    application.add_handler(CommandHandler("quote", send_quote))
+    application.add_handler(CommandHandler("weather", send_weather))
+
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 
