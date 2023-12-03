@@ -26,8 +26,12 @@ def filter_obama(img_byte_arr):
     return img
 
 
-def filter_gray():
-    pass
+def filter_gray(img_byte_arr):
+    img = np.asarray((img_byte_arr), dtype="uint8")
+    img = cv.imdecode(img, cv.IMREAD_COLOR)
+    img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+    img = cv.imencode('.jpg', img)[1].tobytes()
+    return img
 
 
 image_filters = {
