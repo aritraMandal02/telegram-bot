@@ -51,6 +51,7 @@ def get_weather(city_name):
     rain = response['daily'][1].get('rain', 0)
     snow = response['daily'][1].get('snow', 0)
     weather_today = f'''<b>{name}, <i>{temp}°C, {weather}</i></b>
+📌 <b>Lat, Lon:</b> {round(lat, 2)}, {round(lon, 2)}
 ➡️ <b>Weather:</b> {weather} {weather_icon}
 🌡️ <b>Temperature:</b> {temp}°C (feels like: {feels_like}°C)
 🌡️ <b>Temperature (min/max):</b> {temp_min}°C/{temp_max}°C
